@@ -1,3 +1,5 @@
+package entities;
+
 import java.io.IOException;
 import java.util.Random;
 
@@ -12,23 +14,25 @@ public class MonsterFactory {
 
     }
 
-    public static Monster getStrongMonster() throws IOException {
+    public Monster getStrongMonster(String classType) {
         Random rand = new Random();
 
         int hp = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
         int atk = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
         int def = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
+        int healQt = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
 
-        return new Monster(hp, 1, def, atk);
+        return new Monster(hp, def, atk, healQt, classType);
     }
 
-    public static Monster getWeakMonster() throws IOException {
+    public Monster getWeakMonster(String classType) {
         Random rand = new Random();
 
         int hp = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
         int atk = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
         int def = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
+        int healQt = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
 
-        return new Monster(hp, 1, def, atk);
+        return new Monster(hp, def, atk, healQt, classType);
     }
 }
