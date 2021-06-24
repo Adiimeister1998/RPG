@@ -9,6 +9,7 @@ public class MonsterFactory {
     private static final int STRONG_DEV = 25;
     private static final int WEAK_PARAM = 20;
     private static final int WEAK_DEV = 5;
+    private static final int ROOM_SIZE = 5;
 
     private MonsterFactory() {
 
@@ -21,8 +22,10 @@ public class MonsterFactory {
         int atk = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
         int def = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
         int healQt = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
+        int x = Math.abs(rand.nextInt()) % ROOM_SIZE;
+        int y = Math.abs(rand.nextInt()) % ROOM_SIZE;
 
-        return new Monster(hp, def, atk, healQt, classType);
+        return new Monster("Orc" , hp, def, atk, healQt, classType, new Coordinate(x, y));
     }
 
     public Monster getWeakMonster(String classType) {
@@ -32,7 +35,9 @@ public class MonsterFactory {
         int atk = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
         int def = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
         int healQt = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
+        int x = Math.abs(rand.nextInt()) % ROOM_SIZE;
+        int y = Math.abs(rand.nextInt()) % ROOM_SIZE;
 
-        return new Monster(hp, def, atk, healQt, classType);
+        return new Monster("Goblin", hp, def, atk, healQt, classType, new Coordinate(x, y));
     }
 }

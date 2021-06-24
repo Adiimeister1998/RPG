@@ -8,15 +8,19 @@ import logger.Logger;
 import logger.LoggerType;
 
 public class Entity {
+    protected String name;
     protected int hp;
     protected int atk;
     protected int def;
     protected int healQt;
     protected int currHp;
     protected GenericClass type;
-    private boolean isAlive;
+    protected boolean isAlive;
+    protected Coordinate coord;
 
-    public Entity(int hp, int atk, int def, int healQt, String classType) {
+    public Entity(String name, int hp, int atk, int def, int healQt, String classType, Coordinate coord) {
+        this.name = name;
+        this.coord = coord;
         this.isAlive = true;
         this.hp = hp;
         this.currHp = hp;
@@ -69,7 +73,7 @@ public class Entity {
     }
 
     private void updateState() {
-        if(this.currHp < 0) {
+        if(this.currHp <= 0) {
             this.isAlive = false;
         }
     }
@@ -80,17 +84,31 @@ public class Entity {
     }
 
     public void heal(Entity entity) {
-        entity.setCurrHp(entity.getCurrHp() + this.healQt);
+        entity.setCurrHp(Math.min(entity.getCurrHp() + this.healQt, entity.getHp()));
     }
 
     @Override
     public String toString() {
         return "Entity{" +
-                "hp=" + hp +
+                "name=" + name +
+                ", max hp=" + hp +
+                ", hp=" + currHp +
                 ", atk=" + atk +
                 ", def=" + def +
-                ", currHp=" + currHp +
                 ", type=" + type +
+                ", coordinate=" + coord +
                 '}';
+    }
+
+    public void goDirection (Coordinate direction){
+        this.coord.addDelta(direction);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Coordinate getCoord() {
+        return coord;
     }
 }
