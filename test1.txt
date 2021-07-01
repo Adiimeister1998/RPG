@@ -1,0 +1,12 @@
+[INFO]: Entity{hp=24, atk=20, def=17, currHp=24, type=Tank} of type: Monster got 230 xp.
+
+[INFO]: Entity{hp=29, atk=21, def=22, currHp=24, type=Tank} of type: Monster leveled up with stats: 1 5 5.
+
+[INFO]: Entity{hp=22, atk=23, def=23, currHp=22, type=DPS} of type: Monster got 301 xp.
+
+[INFO]: Entity{hp=25, atk=28, def=25, currHp=22, type=DPS} of type: Monster leveled up with stats: 5 3 2.
+
+[INFO]: Entity{hp=28, atk=33, def=27, currHp=22, type=DPS} of type: Monster leveled up with stats: 5 3 2.
+
+[INFO]: Entity{hp=19, atk=18, def=20, currHp=19, type=Healer} of type: Monster got 10 xp.
+
