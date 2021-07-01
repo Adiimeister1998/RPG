@@ -61,6 +61,7 @@ public class Entity {
 
     public void levelUp(int deltaAtk, int deltaHP, int deltaDef)  {
         hp += deltaHP;
+        currHp += deltaHP;
         atk += deltaAtk;
         def += deltaDef;
         Logger.getSingleton().log(String.format("%s leveled up with stats: %d %d %d.\n",
