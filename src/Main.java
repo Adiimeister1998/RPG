@@ -25,29 +25,7 @@ public class Main {
             System.out.println(player);
             // player input
             reader.getCommand();
-
-            // print killed monsters & erase dead monsters
-            ArrayList<Monster> deadMonsters = new ArrayList<>();
-            for (Monster monster : room.getMonsters()) {
-                if (!monster.isAlive()) {
-                    System.out.printf("%s has died!\n", monster.getName());
-                    deadMonsters.add(monster);
-                }
-            }
-            for (Monster monster : deadMonsters) {
-                room.getMonsters().remove(monster);
-                room.getLayout().remove(monster.getCoord().getX(), monster.getCoord().getY());
-            }
-            deadMonsters.clear();
-
-            // monsters attack player
-            for (Monster monster : room.getMonsters()) {
-                monster.attack(player);
-            }
-
-            if(room.getMonsters().isEmpty()) {
-                room.setCleared(true);
-            }
+            room.executeRound();
         }
 
         // endgame result

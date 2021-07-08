@@ -101,4 +101,30 @@ public class Room {
     public void setCleared(boolean cleared) {
         isCleared = cleared;
     }
+
+    public void executeRound() {
+        // print killed monsters & erase dead monsters
+        ArrayList<Monster> deadMonsters = new ArrayList<>();
+        for (Monster monster : monsters) {
+            if (!monster.isAlive()) {
+                System.out.printf("%s has died!\n", monster.getName());
+                deadMonsters.add(monster);
+            }
+        }
+        for (Monster monster : deadMonsters) {
+            monsters.remove(monster);
+            layout.remove(monster.getCoord().getX(), monster.getCoord().getY());
+        }
+        deadMonsters.clear();
+
+        // monsters attack player
+        for (Monster monster : monsters) {
+            monster.attack(player);
+        }
+
+        if(monsters.isEmpty()) {
+            isCleared = true;
+        }
+
+    }
 }
