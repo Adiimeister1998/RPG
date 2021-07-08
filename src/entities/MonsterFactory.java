@@ -5,39 +5,24 @@ import java.util.Random;
 
 public class MonsterFactory {
     public static final MonsterFactory SINGLETON = new MonsterFactory();
-    private static final int STRONG_PARAM = 100;
-    private static final int STRONG_DEV = 25;
-    private static final int WEAK_PARAM = 20;
-    private static final int WEAK_DEV = 5;
-    private static final int ROOM_SIZE = 5;
 
     private MonsterFactory() {
 
     }
 
-    public Monster getStrongMonster(String classType) {
+    public Monster getMonster(String classType,int lvl,String name,int roomSizeX,int roomSizeY) {
         Random rand = new Random();
 
-        int hp = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
-        int atk = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
-        int def = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
-        int healQt = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
-        int x = Math.abs(rand.nextInt()) % ROOM_SIZE;
-        int y = Math.abs(rand.nextInt()) % ROOM_SIZE;
+        int hp = 50+rand.nextInt() % 10;
+        int atk = rand.nextInt() % 5;
+        int def = rand.nextInt() % 3;
+        int healQt = rand.nextInt() % 2;
+        int x = Math.abs(rand.nextInt()) % roomSizeX;
+        int y = Math.abs(rand.nextInt()) % roomSizeY;
 
-        return new Monster("Orc" , hp, def, atk, healQt, classType, new Coordinate(x, y));
-    }
 
-    public Monster getWeakMonster(String classType) {
-        Random rand = new Random();
-
-        int hp = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
-        int atk = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
-        int def = rand.nextInt() % WEAK_DEV + WEAK_PARAM;
-        int healQt = rand.nextInt() % STRONG_DEV + STRONG_PARAM;
-        int x = Math.abs(rand.nextInt()) % ROOM_SIZE;
-        int y = Math.abs(rand.nextInt()) % ROOM_SIZE;
-
-        return new Monster("Goblin", hp, def, atk, healQt, classType, new Coordinate(x, y));
+        Monster newMonster= new Monster(name, hp, def, atk, healQt, classType, new Coordinate(x, y));
+        newMonster.gainXp(lvl*(lvl-1)*50);
+        return newMonster;
     }
 }

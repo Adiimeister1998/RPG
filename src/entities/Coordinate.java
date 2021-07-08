@@ -9,6 +9,11 @@ public class Coordinate {
         this.y = y;
     }
 
+    public Coordinate(Coordinate  coord){
+        this.x=coord.x;
+        this.y=coord.y;
+    }
+
     public int getX() {
         return x;
     }
@@ -24,6 +29,7 @@ public class Coordinate {
     public void setY(int y) {
         this.y = y;
     }
+
 
     public void addDelta(Coordinate direction) {
         this.x += direction.x;

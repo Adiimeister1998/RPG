@@ -15,7 +15,7 @@ public class Room {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.player = player;
-        this.layout = new Matrix<>(sizeX, sizeY);
+        this.layout = new Matrix<>(sizeX+2, sizeY+2);
         this.monsters = new ArrayList<>();
         this.isCleared = false;
 
@@ -25,28 +25,38 @@ public class Room {
         int obstacleCnt = volume * 20 / 100;
         int mobCnt = volume * 20 / 100;
 
+        for (int y=0;y<sizeY+2;y++){
+            layout.add(0,y,-1);
+            layout.add(sizeX+1,y,-1);
+
+        }
+        for (int x=0;x<sizeX+2;x++){
+            layout.add(x,0,-1);
+            layout.add(x,sizeY+1,-1);
+        }
+
         layout.add(player.getCoord().getX(), player.getCoord().getY(), -2);
 
         while(obstacleCnt > 0) {
             int x = Math.abs(rand.nextInt()) % sizeX;
             int y = Math.abs(rand.nextInt()) % sizeY;
-            if(layout.isEmptyCell(x, y)) {
-                layout.add(x, y, -1);
+            if(layout.isEmptyCell(x+1, y+1)) {
+                layout.add(x+1, y+1, -1);
                 obstacleCnt--;
             }
         }
         int idx = 0;
         while (mobCnt > 0) {
-            int x = Math.abs(rand.nextInt()) % sizeX;
-            int y = Math.abs(rand.nextInt()) % sizeY;
-            if(layout.isEmptyCell(x, y)) {
-                layout.add(x, y, idx);
+            if(layout.isEmptyCell(x+1, y+1)) {
+                layout.add(x+1, y+1, idx);
                 monsters.add(new Monster("Monster#" + idx,
-                        50, 10, 10, 10, "Healer", new Coordinate(x, y)));
+                        50, 10, 10, 10, "Healer", new Coordinate(x+1, y+1)));
                 mobCnt--;
                 idx++;
             }
         }
+        this.sizeX+=2;
+        this.sizeY+=2;
     }
 
     @Override
@@ -109,6 +119,7 @@ public class Room {
             if (!monster.isAlive()) {
                 System.out.printf("%s has died!\n", monster.getName());
                 deadMonsters.add(monster);
+                player.gainXp(monster.giveXP());
             }
         }
         for (Monster monster : deadMonsters) {

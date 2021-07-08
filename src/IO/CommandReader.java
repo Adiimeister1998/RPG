@@ -27,7 +27,7 @@ public class CommandReader {
                         System.out.println("go Command needs direction (north/south/east/west)!");
                         continue;
                     }
-                    if(getDirection(comm[1]) == false) {
+                    if(!getDirection(comm[1])) {
                         System.out.println("go Command needs direction (north/south/east/west)!");
                         continue;
                     }
@@ -38,7 +38,8 @@ public class CommandReader {
                         System.out.println("attack Command needs monster name!");
                         continue;
                     }
-                    executeAttack(comm[1]);
+                    if(!executeAttack(comm[1]))
+                        continue;
                 }
                 case "analyze" -> {
                     System.out.println(room.getPlayer());
@@ -58,19 +59,22 @@ public class CommandReader {
         System.out.println(room);
     }
 
-    private void executeAttack(String monsterName) {
+    private boolean executeAttack(String monsterName) {
         for(Monster monster : room.getMonsters()) {
             if(monster.getName().toLowerCase(Locale.ROOT).equals(monsterName)) {
                 if(room.getPlayer().getCoord().getDistance(monster.getCoord()) <= 2) {
                     room.getPlayer().attack(monster);
+                    return true;
                 } else {
                     System.out.println("That monster is too far away!");
+                    return false;
                 }
-                return;
+
             }
         }
 
         System.out.println("That monster does not exist!");
+        return false;
     }
 
     private boolean getDirection(String direction) {
@@ -81,14 +85,17 @@ public class CommandReader {
             case "east" -> new Coordinate(0, 1);
             default -> new Coordinate(0, 0);
         };
+        Coordinate dest=new Coordinate(room.getPlayer().getCoord());
+        dest.addDelta(newCoord);
+        if (!room.getLayout().isEmptyCell(dest.getX(), dest.getY())){
+            System.out.println("Invalid destintation");
+            return false;
+        }
+
         room.getLayout().remove(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY());
         room.getPlayer().goDirection(newCoord);
         room.getLayout().add(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY(), -2);
-        if(newCoord.getX() == 0 && newCoord.getY() == 0) {
-            System.out.println("Invalid direction!");
-            return false;
-        } else {
-            return true;
-        }
+       return true;
     }
+
 }

@@ -1,0 +1,14 @@
+[INFO]: Entity{name=Player, max hp=5000, hp=5000, atk=50, def=30, type=DPS, coordinate=(x=3, y=3), needed XP=100} got 97 xp.
+
+[INFO]: Entity{name=Player, max hp=5000, hp=5000, atk=50, def=30, type=DPS, coordinate=(x=3, y=3), needed XP=3} got 97 xp.
+
+[INFO]: Entity{name=Player, max hp=5003, hp=5003, atk=55, def=32, type=DPS, coordinate=(x=3, y=3), needed XP=106} leveled up with stats: 5 3 2.
+
+[INFO]: Entity{name=Player, max hp=5003, hp=5003, atk=55, def=32, type=DPS, coordinate=(x=3, y=3), needed XP=106} got 97 xp.
+
+[INFO]: Entity{name=Player, max hp=5003, hp=5003, atk=55, def=32, type=DPS, coordinate=(x=3, y=3), needed XP=9} got 97 xp.
+
+[INFO]: Entity{name=Player, max hp=5006, hp=5006, atk=60, def=34, type=DPS, coordinate=(x=3, y=3), needed XP=212} leveled up with stats: 5 3 2.
+
+[INFO]: Entity{name=Player, max hp=5006, hp=5006, atk=60, def=34, type=DPS, coordinate=(x=5, y=3), needed XP=212} got 97 xp.
+

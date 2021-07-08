@@ -80,7 +80,7 @@ public class Entity {
     }
 
     public void attack(Entity entity) {
-        entity.setCurrHp(entity.getCurrHp() - this.atk);
+        entity.setCurrHp(entity.getCurrHp() - Math.max(0,this.atk-entity.getDef()));
         entity.updateState();
     }
 
@@ -98,6 +98,7 @@ public class Entity {
                 ", def=" + def +
                 ", type=" + type +
                 ", coordinate=" + coord +
+                ", needed XP="+ type.neededXP()+
                 '}';
     }
 

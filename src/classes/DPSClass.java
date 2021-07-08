@@ -10,7 +10,7 @@ public class DPSClass extends GenericClass {
     private static final int deltaDef = 2;
 
     public DPSClass(Entity parent) {
-        super(parent);
+        super(parent,0.5);
     }
 
     @Override

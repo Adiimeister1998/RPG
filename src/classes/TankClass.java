@@ -10,7 +10,7 @@ public class TankClass extends GenericClass {
     private static final int deltaDef = 5;
 
     public TankClass(Entity parent) {
-        super(parent);
+        super(parent,0.7);
     }
 
     @Override

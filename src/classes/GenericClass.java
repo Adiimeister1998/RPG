@@ -8,9 +8,27 @@ public abstract class GenericClass {
     protected Entity parent;
     protected int lvl;
     protected int xp;
+    protected double coeff;
 
-    public GenericClass(Entity parent) {
+    public int getLvl() {
+        return lvl;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int neededXP(){
+        return 100*lvl-xp;
+    }
+
+    public double getCoeff() {
+        return coeff;
+    }
+
+    public GenericClass(Entity parent, double coeff) {
         this.parent = parent;
+        this.coeff = coeff;
         lvl = 1;
         xp = 0;
     }
