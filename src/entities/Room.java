@@ -1,5 +1,7 @@
 package entities;
 
+import classes.GenericClass;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,8 +14,8 @@ public class Room {
     private Player player;
 
     public Room(int sizeX, int sizeY, Player player) {
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+        this.sizeX = sizeX + 2;
+        this.sizeY = sizeY + 2;
         this.player = player;
         this.layout = new Matrix<>(sizeX+2, sizeY+2);
         this.monsters = new ArrayList<>();
@@ -21,42 +23,40 @@ public class Room {
 
         Random rand = new Random();
         // temporary
-        int volume = sizeX * sizeY;
+        int volume = (this.sizeX - 2) * (this.sizeY - 2);
         int obstacleCnt = volume * 20 / 100;
         int mobCnt = volume * 20 / 100;
 
-        for (int y=0;y<sizeY+2;y++){
+        for (int y=0;y<this.sizeY;y++){
             layout.add(0,y,-1);
-            layout.add(sizeX+1,y,-1);
+            layout.add(this.sizeX-1,y,-1);
 
         }
-        for (int x=0;x<sizeX+2;x++){
+        for (int x=0;x<this.sizeX;x++){
             layout.add(x,0,-1);
-            layout.add(x,sizeY+1,-1);
+            layout.add(x,this.sizeY-1,-1);
         }
 
         layout.add(player.getCoord().getX(), player.getCoord().getY(), -2);
 
         while(obstacleCnt > 0) {
-            int x = Math.abs(rand.nextInt()) % sizeX;
-            int y = Math.abs(rand.nextInt()) % sizeY;
-            if(layout.isEmptyCell(x+1, y+1)) {
-                layout.add(x+1, y+1, -1);
+            int x = Math.abs(rand.nextInt()) % this.sizeX;
+            int y = Math.abs(rand.nextInt()) % this.sizeY;
+            if(layout.isEmptyCell(x, y)) {
+                layout.add(x, y, -1);
                 obstacleCnt--;
             }
         }
         int idx = 0;
         while (mobCnt > 0) {
-            if(layout.isEmptyCell(x+1, y+1)) {
-                layout.add(x+1, y+1, idx);
-                monsters.add(new Monster("Monster#" + idx,
-                        50, 10, 10, 10, "Healer", new Coordinate(x+1, y+1)));
+            Monster newMonster = MonsterFactory.SINGLETON.getMonster(GenericClass.getRandomClassType(), 1, "Monster#" + idx, sizeX, sizeY);
+            if(layout.isEmptyCell(newMonster.getCoord().getX(), newMonster.getCoord().getY())) {
+                layout.add(newMonster.getCoord().getX(), newMonster.getCoord().getY(), idx);
+                monsters.add(newMonster);
                 mobCnt--;
                 idx++;
             }
         }
-        this.sizeX+=2;
-        this.sizeY+=2;
     }
 
     @Override

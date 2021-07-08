@@ -1,14 +1,32 @@
-[INFO]: Entity{name=Player, max hp=5000, hp=5000, atk=50, def=30, type=DPS, coordinate=(x=3, y=3), needed XP=100} got 97 xp.
+[INFO]: Entity{name=Monster#0, max hp=52, hp=52, atk=10, def=18, type=Healer, coordinate=(x=2, y=0), needed XP=100} of type: Monster got 0 xp.
 
-[INFO]: Entity{name=Player, max hp=5000, hp=5000, atk=50, def=30, type=DPS, coordinate=(x=3, y=3), needed XP=3} got 97 xp.
+[INFO]: Entity{name=Monster#0, max hp=59, hp=59, atk=8, def=23, type=DPS, coordinate=(x=1, y=4), needed XP=100} of type: Monster got 0 xp.
 
-[INFO]: Entity{name=Player, max hp=5003, hp=5003, atk=55, def=32, type=DPS, coordinate=(x=3, y=3), needed XP=106} leveled up with stats: 5 3 2.
+[INFO]: Entity{name=Monster#0, max hp=52, hp=52, atk=11, def=22, type=Tank, coordinate=(x=2, y=4), needed XP=100} of type: Monster got 0 xp.
 
-[INFO]: Entity{name=Player, max hp=5003, hp=5003, atk=55, def=32, type=DPS, coordinate=(x=3, y=3), needed XP=106} got 97 xp.
+[INFO]: Entity{name=Monster#0, max hp=44, hp=44, atk=12, def=16, type=Tank, coordinate=(x=3, y=2), needed XP=100} of type: Monster got 0 xp.
 
-[INFO]: Entity{name=Player, max hp=5003, hp=5003, atk=55, def=32, type=DPS, coordinate=(x=3, y=3), needed XP=9} got 97 xp.
+[INFO]: Entity{name=Monster#1, max hp=56, hp=56, atk=12, def=21, type=DPS, coordinate=(x=1, y=3), needed XP=100} of type: Monster got 0 xp.
 
-[INFO]: Entity{name=Player, max hp=5006, hp=5006, atk=60, def=34, type=DPS, coordinate=(x=3, y=3), needed XP=212} leveled up with stats: 5 3 2.
+[INFO]: Entity{name=Monster#2, max hp=45, hp=45, atk=10, def=17, type=Healer, coordinate=(x=2, y=0), needed XP=100} of type: Monster got 0 xp.
 
-[INFO]: Entity{name=Player, max hp=5006, hp=5006, atk=60, def=34, type=DPS, coordinate=(x=5, y=3), needed XP=212} got 97 xp.
+[INFO]: Entity{name=Monster#2, max hp=46, hp=46, atk=12, def=20, type=Tank, coordinate=(x=2, y=1), needed XP=100} of type: Monster got 0 xp.
+
+[INFO]: Entity{name=Monster#3, max hp=42, hp=42, atk=10, def=18, type=Healer, coordinate=(x=3, y=1), needed XP=100} of type: Monster got 0 xp.
+
+[INFO]: Entity{name=Monster#4, max hp=42, hp=42, atk=10, def=22, type=DPS, coordinate=(x=1, y=2), needed XP=100} of type: Monster got 0 xp.
+
+[INFO]: Entity{name=Player, max hp=100, hp=84, atk=25, def=10, type=DPS, coordinate=(x=3, y=3), needed XP=100} got 127 xp.
+
+[INFO]: Entity{name=Player, max hp=103, hp=87, atk=30, def=12, type=DPS, coordinate=(x=3, y=3), needed XP=173} leveled up with stats: 5 3 2.
+
+[INFO]: Entity{name=Player, max hp=103, hp=87, atk=30, def=12, type=DPS, coordinate=(x=3, y=3), needed XP=173} got 97 xp.
+
+[INFO]: Entity{name=Player, max hp=103, hp=103, atk=30, def=12, type=DPS, coordinate=(x=3, y=1), needed XP=76} got 127 xp.
+
+[INFO]: Entity{name=Player, max hp=106, hp=106, atk=35, def=14, type=DPS, coordinate=(x=3, y=1), needed XP=249} leveled up with stats: 5 3 2.
+
+[INFO]: Entity{name=Player, max hp=106, hp=106, atk=35, def=14, type=DPS, coordinate=(x=2, y=1), needed XP=249} got 107 xp.
+
+[INFO]: Entity{name=Player, max hp=106, hp=106, atk=35, def=14, type=DPS, coordinate=(x=2, y=2), needed XP=142} got 108 xp.
 

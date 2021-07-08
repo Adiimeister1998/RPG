@@ -8,7 +8,6 @@ public class Monster extends Entity {
 
 
     public int giveXP() {
-
         return (int) (50*type.getLvl()+100*type.getCoeff()+(hp+atk+def)/10);
 
     }

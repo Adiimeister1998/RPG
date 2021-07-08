@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Logger.createSingleton("test1.txt");
 
-        Player player = new Player("Player", 5000, 50, 30, 500, "DPS", new Coordinate(3, 3));
+        Player player = new Player("Player", 100, 25, 10, 20, "DPS", new Coordinate(3, 3));
 
         Room room = new Room(5, 5, player);
         CommandReader reader = new CommandReader(room);

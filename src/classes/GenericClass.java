@@ -3,12 +3,20 @@ package classes;
 import entities.Entity;
 
 import java.io.IOException;
+import java.util.Random;
 
 public abstract class GenericClass {
     protected Entity parent;
     protected int lvl;
     protected int xp;
     protected double coeff;
+    protected static final String[] types = {"Tank", "Healer", "DPS"};
+
+    public static String getRandomClassType() {
+        Random rand = new Random();
+        int idx = Math.abs(rand.nextInt()) % types.length;
+        return types[idx];
+    }
 
     public int getLvl() {
         return lvl;

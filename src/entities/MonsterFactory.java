@@ -1,6 +1,5 @@
 package entities;
 
-import java.io.IOException;
 import java.util.Random;
 
 public class MonsterFactory {
@@ -13,10 +12,10 @@ public class MonsterFactory {
     public Monster getMonster(String classType,int lvl,String name,int roomSizeX,int roomSizeY) {
         Random rand = new Random();
 
-        int hp = 50+rand.nextInt() % 10;
-        int atk = rand.nextInt() % 5;
-        int def = rand.nextInt() % 3;
-        int healQt = rand.nextInt() % 2;
+        int hp = 50 + rand.nextInt() % 10;
+        int atk = 20 + rand.nextInt() % 5;
+        int def = 10 + rand.nextInt() % 3;
+        int healQt = 5 + rand.nextInt() % 2;
         int x = Math.abs(rand.nextInt()) % roomSizeX;
         int y = Math.abs(rand.nextInt()) % roomSizeY;
 
