@@ -27,7 +27,10 @@ public class CommandReader {
                         System.out.println("go Command needs direction (north/south/east/west)!");
                         continue;
                     }
-                    getDirection(comm[1]);
+                    if(getDirection(comm[1]) == false) {
+                        System.out.println("go Command needs direction (north/south/east/west)!");
+                        continue;
+                    }
                 }
                 case "heal" -> room.getPlayer().heal(room.getPlayer());
                 case "attack" -> {
@@ -37,7 +40,11 @@ public class CommandReader {
                     }
                     executeAttack(comm[1]);
                 }
-                case "analyze" -> {printMonsters(); continue;}
+                case "analyze" -> {
+                    System.out.println(room.getPlayer());
+                    printMonsters();
+                    continue;
+                }
                 default -> {System.out.println("Invalid command!"); continue;}
             }
             break;
@@ -66,7 +73,7 @@ public class CommandReader {
         System.out.println("That monster does not exist!");
     }
 
-    private void getDirection(String direction) {
+    private boolean getDirection(String direction) {
         Coordinate newCoord = switch (direction) {
             case "north" -> new Coordinate(-1, 0);
             case "south" -> new Coordinate(1, 0);
@@ -79,6 +86,9 @@ public class CommandReader {
         room.getLayout().add(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY(), -2);
         if(newCoord.getX() == 0 && newCoord.getY() == 0) {
             System.out.println("Invalid direction!");
+            return false;
+        } else {
+            return true;
         }
     }
 }

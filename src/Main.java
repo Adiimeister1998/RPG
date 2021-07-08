@@ -22,7 +22,6 @@ public class Main {
         System.out.println(room);
 
         while (player.isAlive() && !room.isCleared()) {
-            System.out.println(player);
             // player input
             reader.getCommand();
             room.executeRound();
