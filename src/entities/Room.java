@@ -117,9 +117,11 @@ public class Room {
         }
         deadMonsters.clear();
 
+
         // monsters attack player
         for (Monster monster : monsters) {
-            monster.attack(player);
+            if (monster.getCoord().getDistance(player.getCoord()) <= 2)
+                monster.attack(player);
         }
 
         if(monsters.isEmpty()) {

@@ -5,11 +5,11 @@ import logger.Logger;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: solve monsters distant attacks
 // TODO: don't waste turn on invalid commands
 // TODO: make player not collide with obstacles
 // TODO: make player not go outside room
 // TODO: make defense work
+// TODO: bordarea matricei
 public class Main {
     public static void main(String[] args) {
         Logger.createSingleton("test1.txt");
