@@ -11,9 +11,11 @@ public class Main {
     public static void main(String[] args) {
         Logger.createSingleton("test1.txt");
 
-        Player player = new Player("Player", 100, 25, 10, 20, "DPS", new Coordinate(3, 3));
+        Player player = new Player("Player", 100, 25, 10, 20, "DPS", new Coordinate(2, 3));
 
-        Room room = new Room(5, 5, player);
+        Room room = RoomFactory.getNormalRoom(player);
+        Doorway exit = new Doorway(new Coordinate(1, 0), room);
+        room.addExit(exit);
         CommandReader reader = new CommandReader(room);
 
         System.out.println(room);

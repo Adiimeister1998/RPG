@@ -1,9 +1,6 @@
 package IO;
 
-import entities.Coordinate;
-import entities.Monster;
-import entities.Player;
-import entities.Room;
+import entities.*;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -94,7 +91,7 @@ public class CommandReader {
 
         room.getLayout().remove(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY());
         room.getPlayer().goDirection(newCoord);
-        room.getLayout().add(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY(), -2);
+        room.getLayout().add(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY(), CellType.PLAYER);
        return true;
     }
 

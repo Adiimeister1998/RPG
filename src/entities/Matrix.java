@@ -14,6 +14,12 @@ public class Matrix<T> {
             }
         }
     }
+    public Matrix(Matrix<T> other) {
+        cells = new ArrayList<>();
+        for(int i = 0; i < other.cells.size(); i++) {
+            cells.add(new ArrayList<T>(other.cells.get(i)));
+        }
+    }
 
     public boolean isEmptyCell(int x, int y) {
         return this.get(x, y) == null;

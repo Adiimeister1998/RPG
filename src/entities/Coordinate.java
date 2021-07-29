@@ -1,6 +1,8 @@
 package entities;
 
-public class Coordinate {
+import java.util.Objects;
+
+public class Coordinate implements Comparable<Coordinate>{
     private int x;
     private int y;
 
@@ -46,5 +48,30 @@ public class Coordinate {
 
     public int getDistance(Coordinate coord) {
         return Math.abs(x - coord.x) + Math.abs(y - coord.y);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinate that = (Coordinate) o;
+        return x == that.x &&
+                y == that.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public int compareTo(Coordinate o) {
+        if(x < o.x) {
+            return 1;
+        } else if(x == o.x) {
+            return y - o.y;
+        } else {
+            return -1;
+        }
     }
 }
