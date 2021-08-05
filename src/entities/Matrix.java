@@ -17,7 +17,7 @@ public class Matrix<T> {
     public Matrix(Matrix<T> other) {
         cells = new ArrayList<>();
         for(int i = 0; i < other.cells.size(); i++) {
-            cells.add(new ArrayList<T>(other.cells.get(i)));
+            cells.add(new ArrayList<>(other.cells.get(i)));
         }
     }
 
@@ -35,5 +35,13 @@ public class Matrix<T> {
 
     public void remove(int x, int y) {
         add(x, y, null);
+    }
+
+    public int getRows() {
+        return cells.size();
+    }
+
+    public int getColumns() {
+        return cells.get(0).size();
     }
 }

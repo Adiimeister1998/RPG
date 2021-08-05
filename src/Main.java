@@ -11,11 +11,14 @@ public class Main {
     public static void main(String[] args) {
         Logger.createSingleton("test1.txt");
 
-        Player player = new Player("Player", 100, 25, 10, 20, "DPS", new Coordinate(2, 3));
+        Player player = new Player("Player", 100, 25, 10, 20, "DPS", new Coordinate(3, 3));
 
-        Room room = RoomFactory.getNormalRoom(player);
-        Doorway exit = new Doorway(new Coordinate(1, 0), room);
-        room.addExit(exit);
+        ArrayList<Doorway> exits = new ArrayList<>();
+        /*exits.add(new Doorway(new Coordinate(0, 3), null));
+        exits.add(new Doorway(new Coordinate(6, 3), null));
+        exits.add(new Doorway(new Coordinate(3, 0), null));
+        exits.add(new Doorway(new Coordinate(3, 6), null));*/
+        Room room = RoomFactory.getNormalRoom(player, exits);
         CommandReader reader = new CommandReader(room);
 
         System.out.println(room);

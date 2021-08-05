@@ -8,24 +8,25 @@ public class RoomFactory {
         int sizeY = 7;
 
 
-        Room newRoom = new Room(sizeX, sizeY, player, new Matrix<CellType>(sizeX, sizeY),
-                new ArrayList<Monster>(), new ArrayList<Doorway>(), true);
+        Room newRoom = new Room(sizeX, sizeY, player, new Matrix<>(sizeX, sizeY),
+                new ArrayList<>(), new ArrayList<>(), true);
         newRoom.resetRoom();
         newRoom.boardRoom();
 
         return newRoom;
     }
-    // INCOMPLETE!!!
-    public static Room getNormalRoom(Player player) {
-        int sizeX = 11;
-        int sizeY = 13;
+    public static Room getNormalRoom(Player player, ArrayList<Doorway> exits) {
+        int sizeX = 9;
+        int sizeY = 12;
 
 
-        Room newRoom = new Room(sizeX, sizeY, player, new Matrix<CellType>(sizeX, sizeY),
-                new ArrayList<Monster>(), new ArrayList<Doorway>(), true);
+        Room newRoom = new Room(sizeX, sizeY, player, new Matrix<>(sizeX, sizeY),
+                new ArrayList<>(), exits, false);
         newRoom.resetRoom();
-        newRoom.boardRoom();
-        newRoom.addObstacles(25);
+        int obstacleCount = (sizeX - 2) * (sizeY - 2) / 5;
+        int monsterCount = (sizeX - 2) * (sizeY - 2) / 5;
+        newRoom.addObstacles(obstacleCount);
+        newRoom.addMonsters(monsterCount);
 
         return newRoom;
     }

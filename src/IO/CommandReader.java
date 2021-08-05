@@ -91,7 +91,7 @@ public class CommandReader {
 
         room.getLayout().remove(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY());
         room.getPlayer().goDirection(newCoord);
-        room.getLayout().add(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY(), CellType.PLAYER);
+        room.getLayout().add(room.getPlayer().getCoord().getX(), room.getPlayer().getCoord().getY(), new Cell(CellType.PLAYER));
        return true;
     }
 

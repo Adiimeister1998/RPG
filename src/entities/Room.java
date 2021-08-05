@@ -12,47 +12,56 @@ public class Room {
     private boolean isCleared;
     private int sizeX;
     private int sizeY;
-    private Matrix<CellType> layout;
+    private Matrix<Cell> layout;
     private ArrayList<Monster> monsters;
-    private final Matrix<CellType> backupLayout;
+    private final Matrix<Cell> backupLayout;
     private final ArrayList<Monster> backupMonsters;
     private Player player;
     private ArrayList<Doorway> exits;
 
-    public Room(int sizeX, int sizeY, Player player, Matrix<CellType> layout,
+    public Room(int sizeX, int sizeY, Player player, Matrix<Cell> layout,
                 ArrayList<Monster> monsters, ArrayList<Doorway> exits, boolean isCleared) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.player = player;
         this.layout = layout;
-        this.exits = exits;
+        this.exits = new ArrayList<>();
         this.monsters = monsters;
         this.backupLayout = new Matrix<>(layout);
         this.backupMonsters = new ArrayList<>(monsters);
         this.isCleared = isCleared;
+
+        this.boardRoom();
+        for(Doorway exit : exits) {
+            addExit(exit);
+        }
     }
 
     public void resetRoom() {
         layout = new Matrix<>(backupLayout);
         monsters = new ArrayList<>(backupMonsters);
-        layout.add(player.getCoord().getX(), player.getCoord().getY(), CellType.PLAYER);
+        layout.add(player.getCoord().getX(), player.getCoord().getY(), new Cell(CellType.PLAYER));
     }
 
     public void addExit(Doorway exit) {
         this.exits.add(exit);
-        this.layout.add(exit.getCoord().getX(), exit.getCoord().getY(), CellType.DOORWAY);
-        this.backupLayout.add(exit.getCoord().getX(), exit.getCoord().getY(), CellType.DOORWAY);
+        this.layout.add(exit.getCoord().getX(), exit.getCoord().getY(), new Cell(CellType.DOORWAY));
+        this.backupLayout.add(exit.getCoord().getX(), exit.getCoord().getY(), new Cell(CellType.DOORWAY));
     }
 
     public void boardRoom() {
         for (int y=0;y<this.sizeY;y++){
-            layout.add(0, y, CellType.OBSTACLE);
-            layout.add(this.sizeX - 1, y, CellType.OBSTACLE);
+            layout.add(0, y, new Cell(CellType.OBSTACLE));
+            layout.add(this.sizeX - 1, y, new Cell(CellType.OBSTACLE));
+            backupLayout.add(0, y, new Cell(CellType.OBSTACLE));
+            backupLayout.add(this.sizeX - 1, y, new Cell(CellType.OBSTACLE));
 
         }
         for (int x=0;x<this.sizeX;x++){
-            layout.add(x, 0, CellType.OBSTACLE);
-            layout.add(x, this.sizeY - 1, CellType.OBSTACLE);
+            layout.add(x, 0, new Cell(CellType.OBSTACLE));
+            layout.add(x, this.sizeY - 1, new Cell(CellType.OBSTACLE));
+            backupLayout.add(x, 0, new Cell(CellType.OBSTACLE));
+            backupLayout.add(x, this.sizeY - 1, new Cell(CellType.OBSTACLE));
         }
     }
 
@@ -61,9 +70,9 @@ public class Room {
         ArrayDeque<Coordinate> toVisit = new ArrayDeque<>();
         TreeSet<Coordinate> visited = new TreeSet<>();
         int totalCells = 0;
-        for(int x = 1; x < this.sizeX; x++) {
-            for(int y = 1; y < this.sizeY; y++) {
-                if(this.layout.isEmptyCell(x, y)) {
+        for(int x = 0; x < this.sizeX; x++) {
+            for(int y = 0; y < this.sizeY; y++) {
+                if(this.layout.isEmptyCell(x, y) || !this.layout.get(x, y).getType().equals(CellType.OBSTACLE)) {
                     if(currentPosition == null)
                         currentPosition = new Coordinate(x, y);
                     totalCells++;
@@ -87,7 +96,10 @@ public class Room {
             for(int i = 0; i < 4; i++) {
                 Coordinate nextPos = new Coordinate(currentPosition);
                 nextPos.addDelta(deltas[i]);
-                if(!visited.contains(nextPos) && layout.isEmptyCell(nextPos.getX(), nextPos.getY())) {
+                if(isValidCoord(nextPos, layout.getRows(), layout.getColumns()) &&
+                        !visited.contains(nextPos) &&
+                        (layout.isEmptyCell(nextPos.getX(), nextPos.getY()) ||
+                         !layout.get(nextPos.getX(), nextPos.getY()).getType().equals(CellType.OBSTACLE))) {
                     toVisit.addLast(nextPos);
                 }
             }
@@ -95,8 +107,10 @@ public class Room {
         return totalCells == visited.size();
     }
 
-    //INCOMPLETE!!!
-    // TODO: add condition for exits
+    private boolean isValidCoord(Coordinate nextPos, int rows, int columns) {
+        return nextPos.getX() >= 0 && nextPos.getX() < rows && nextPos.getY() >= 0 && nextPos.getY() < columns;
+    }
+
     public void addObstacles(int count) {
         Random random = new Random();
         while(count > 0) {
@@ -104,51 +118,31 @@ public class Room {
             int y = 1 + Math.abs(random.nextInt()) % (this.sizeY - 1);
             if(!this.layout.isEmptyCell(x, y))
                 continue;
-            this.layout.add(x, y, CellType.OBSTACLE);
+            this.layout.add(x, y, new Cell(CellType.OBSTACLE));
             if(this.checkFullyAccessible()) {
                 count--;
-                this.backupLayout.add(x, y, CellType.OBSTACLE);
+                this.backupLayout.add(x, y, new Cell(CellType.OBSTACLE));
             } else {
                 this.layout.remove(x, y);
             }
         }
     }
-    /*
-    public Room(int sizeX, int sizeY, Player player) {
-        this.sizeX = sizeX + 2;
-        this.sizeY = sizeY + 2;
-        this.player = player;
-        this.layout = new Matrix<>(sizeX+2, sizeY+2);
-        this.monsters = new ArrayList<>();
-        this.isCleared = false;
-
-        Random rand = new Random();
-        // temporary
-        int volume = (this.sizeX - 2) * (this.sizeY - 2);
-        int obstacleCnt = volume * 20 / 100;
-        int mobCnt = volume * 20 / 100;
-
-        layout.add(player.getCoord().getX(), player.getCoord().getY(), -2);
-
-        while(obstacleCnt > 0) {
-            int x = Math.abs(rand.nextInt()) % this.sizeX;
-            int y = Math.abs(rand.nextInt()) % this.sizeY;
-            if(layout.isEmptyCell(x, y)) {
-                layout.add(x, y, -1);
-                obstacleCnt--;
-            }
-        }
+    public void addMonsters(int count) {
+        Random random = new Random();
         int idx = 0;
-        while (mobCnt > 0) {
-            Monster newMonster = MonsterFactory.SINGLETON.getMonster(GenericClass.getRandomClassType(), 1, "Monster#" + idx, sizeX, sizeY);
-            if(layout.isEmptyCell(newMonster.getCoord().getX(), newMonster.getCoord().getY())) {
-                layout.add(newMonster.getCoord().getX(), newMonster.getCoord().getY(), idx);
-                monsters.add(newMonster);
-                mobCnt--;
-                idx++;
-            }
+        for(int i = 0; i < count; i++) {
+            int x = 1 + Math.abs(random.nextInt()) % (this.sizeX - 1);
+            int y = 1 + Math.abs(random.nextInt()) % (this.sizeY - 1);
+            Monster newMonster = MonsterFactory.SINGLETON.getMonster(GenericClass.getRandomClassType(), 1, "Monster#" + idx, x, y);
+            if(!this.layout.isEmptyCell(x, y))
+                continue;
+            Cell monsterCell = new Cell(CellType.MONSTER, idx);
+            this.layout.add(x, y, monsterCell);
+            monsters.add(newMonster);
+            idx++;
+            count--;
         }
-    }*/
+    }
 
     @Override
     public String toString() {
@@ -159,11 +153,11 @@ public class Room {
             for(int j = 0; j < sizeY; j++) {
                 if(layout.isEmptyCell(i, j)) {
                     builder.append("| ");
-                } else if(layout.get(i, j).equals(CellType.OBSTACLE)) {
+                } else if(layout.get(i, j).getType().equals(CellType.OBSTACLE)) {
                     builder.append("|#");
-                }  else if(layout.get(i, j).equals(CellType.PLAYER)) {
+                }  else if(layout.get(i, j).getType().equals(CellType.PLAYER)) {
                     builder.append("|P");
-                } else if(layout.get(i, j).equals(CellType.DOORWAY)){
+                } else if(layout.get(i, j).getType().equals(CellType.DOORWAY)){
                     builder.append("|E");
                 } else {
                     builder.append("|");
@@ -197,7 +191,7 @@ public class Room {
         return player;
     }
 
-    public Matrix<CellType> getLayout() {
+    public Matrix<Cell> getLayout() {
         return layout;
     }
 
